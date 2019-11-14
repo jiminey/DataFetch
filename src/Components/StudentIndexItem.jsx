@@ -6,12 +6,15 @@ export default class StudentIndexItem extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showPullDown: true
+      showPullDown: true,
+      tags: []
     };
 
-    this.getAverage = this.getAverage.bind(this)
-    this.showPullDown = this.showPullDown.bind(this)
-    this.toggle = this.toggle.bind(this)
+    this.getAverage = this.getAverage.bind(this);
+    this.showPullDown = this.showPullDown.bind(this);
+    this.toggle = this.toggle.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.addTag = this.addTag.bind(this);
   }
 
   getAverage(grades) {
@@ -23,32 +26,39 @@ export default class StudentIndexItem extends Component {
       total += grades[i];
       average = total / grades.length;
     }
-
     return average;
   }
 
-  showPullDown(){
+  showPullDown() {
     if (this.state.showPullDown) {
-        return (
-            <div>
-                <button onClick={this.toggle}>+</button>
-            </div>
-        )
+      return (
+        <div>
+          <button onClick={this.toggle}>+</button>
+        </div>
+      );
     } else {
-        return (
-            <div>
-                <button onClick={this.toggle}>-</button>
-            </div>
-        )
+      return (
+        <div>
+          <button onClick={this.toggle}>-</button>
+        </div>
+      );
     }
   }
 
   toggle() {
     this.setState({
-        showPullDown: !this.state.showPullDown,
-    })
+      showPullDown: !this.state.showPullDown
+    });
   }
 
+  handleSubmit(e){
+    e.preventDefault();
+    this.addTag(e.currentTarget.value)
+  }
+
+  addTag(tag) {
+    let tags = [...this.state.tags, tag]
+  }
 
   render() {
     const firstName = this.props.firstName;
@@ -57,6 +67,14 @@ export default class StudentIndexItem extends Component {
     const company = this.props.company;
     const skill = this.props.skill;
     const grades = this.getAverage(this.props.grades);
+
+    // const tags = this.props.tags.map(tag => {
+    //   return (
+    //     <div>
+    //       <li>{tag}</li>
+    //     </div>
+    //   );
+    // });
 
     const test =
       !this.state.showPullDown &&
@@ -92,7 +110,15 @@ export default class StudentIndexItem extends Component {
           <ul>{test}</ul>
         </div>
 
-            {this.showPullDown()}
+        <div>
+          {/* <ul>{tags}</ul> */}
+        </div>
+
+        {this.showPullDown()}
+
+        <form onSubmit={this.handleSubmit}>
+          <input type="text" placeholder="Add a tag" />
+        </form>
       </div>
     );
   }

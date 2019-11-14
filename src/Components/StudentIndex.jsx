@@ -8,9 +8,9 @@ export default class Student extends Component {
     super(props);
     this.state = {
       students: [],
-      name_keyword: "",
-      tag_keyword: "",
-      matches: [],
+      nameKeyword: "",
+      tagKeyword: "",
+      studentsWithTags: [],
       isSearchNames: true,
       isSearchTags: false
     };
@@ -29,7 +29,7 @@ export default class Student extends Component {
   handleName(e) {
     e.preventDefault();
     this.setState({
-      name_keyword: e.currentTarget.value,
+      nameKeyword: e.currentTarget.value,
       isSearchNames: true,
       isSearchTags: false
     });
@@ -61,11 +61,26 @@ export default class Student extends Component {
     };
   }
 
+  addTags(id, tag) {
+    const student = this.state.students.filter(student => student.id === id).shift()
+    
+    //create tags for students
+    student.tags = student.tags.push(tag)
+
+    let newList = [...this.state.studentsWithTags, student]
+    let uniqList = [...new Set(newList)]
+
+    this.setState({
+        studentsWithTags: uniqList
+    })
+
+  }
+
   render() {
     //ternary for searching with name or tag
     const students = this.state.isSearchNames
       ? this.state.students
-          .filter(this.searchByName(this.state.name_keyword))
+          .filter(this.searchByName(this.state.nameKeyword))
           .map(student => {
             return (
               <StudentIndexItem
@@ -78,13 +93,13 @@ export default class Student extends Component {
                 company={student.company}
                 skill={student.skill}
                 grades={student.grades}
-                //tags={student.tags}
+                tags={student.tags}
                 // handleTags={this.handleTags}
               ></StudentIndexItem>
             );
           })
-      : this.state.students
-          .filter(this.searchByTags(this.state.tag_keyword))
+      : this.state.studentsWithTags
+          .filter(this.searchByTags(this.state.tagKeyword))
           .map(student => {
             return (
               <StudentIndexItem
@@ -97,7 +112,7 @@ export default class Student extends Component {
                 company={student.company}
                 skill={student.skill}
                 grades={student.grades}
-                //   tags={student.tags}
+                tags={student.tags}
                 // handleTags={this.handleTags}
               ></StudentIndexItem>
             );
@@ -110,8 +125,8 @@ export default class Student extends Component {
             <input
               type="text"
               onChange={this.handleName}
-              placeholder="Search by name..."
-              value={this.state.name_keyword}
+              placeholder="Search by name"
+              value={this.state.nameKeyword}
             />
           </form>
         </div>
@@ -120,13 +135,14 @@ export default class Student extends Component {
             <input
               type="text"
               onChange={this.handleTag}
-              placeholder="Search by tags..."
-              value={this.state.tag_keyword}
+              placeholder="Search by tags"
+              value={this.state.tagKeyword}
             />
           </form>
         </div>
 
         <div>{students}</div>
+
       </div>
     );
   }
