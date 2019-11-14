@@ -24,7 +24,12 @@ export default class StudentIndexItem extends Component {
         return average
     }
     render() {
-
+        const firstName = this.props.firstName
+        const lastName = this.props.lastName
+        const email = this.props.email
+        const company = this.props.company
+        const skill = this.props.skill
+        const grades = this.getAverage(this.props.grades)
 
         return (
             <div>
@@ -35,13 +40,12 @@ export default class StudentIndexItem extends Component {
                 <div>
                     <ul>
                         <li>
-                            {this.props.firstName} {this.props.lastName}
+                            {firstName} {lastName}
                         </li>
-                        <li>Email: {this.props.email}</li>
-                        <li>Company: {this.props.company}</li>
-                        <li>Skill: {this.props.skill}</li>
-                        <li>Average: {this.props.email}</li>
-
+                        <li>Email: {email}</li>
+                        <li>Company: {company}</li>
+                        <li>Skill: {skill}</li>
+                        <li>Average: {grades}</li>
                     </ul>
                 </div>
             </div>
