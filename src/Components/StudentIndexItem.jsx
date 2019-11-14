@@ -15,7 +15,7 @@ export default class StudentIndexItem extends Component {
         let total = 0;
         let average;
 
-        for (let i = 0; i < arr.length; i++) {
+        for (let i = 0; i < grades.length; i++) {
             grades[i] = parseInt(grades[i])
             total += grades[i]
             average = total / grades.length
@@ -30,6 +30,16 @@ export default class StudentIndexItem extends Component {
         const company = this.props.company
         const skill = this.props.skill
         const grades = this.getAverage(this.props.grades)
+
+        const test = this.props.grades.map((test, idx) => {
+            return(
+                <div>
+                    <li key={idx+1}>
+                        Test {idx + 1}: {test}%
+                    </li>
+                </div>
+            )
+        })
 
         return (
             <div>
@@ -48,6 +58,16 @@ export default class StudentIndexItem extends Component {
                         <li>Average: {grades}</li>
                     </ul>
                 </div>
+
+                <div>
+                    <ul>
+                        {test}
+                    </ul>
+                </div>
+
+
+
+
             </div>
         )
     }
