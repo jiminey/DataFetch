@@ -47,8 +47,8 @@ export default class Student extends Component {
   searchByName(keyword) {
     return x => {
       return (
-        x.firstName.toLowerCase().includes(keyword.toLowercase()) ||
-        x.lastName.toLowerCase().includes(keyword.toLowercase())
+        x.firstName.toLowerCase().includes(keyword.toLowerCase()) ||
+        x.lastName.toLowerCase().includes(keyword.toLowerCase())
       );
     };
   }
