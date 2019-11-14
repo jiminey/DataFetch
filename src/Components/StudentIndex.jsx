@@ -79,15 +79,11 @@ export default class Student extends Component {
     this.setState({
       studentsWithTags: uniqList
     });
+
   }
 
   render() {
     //ternary for searching with name or tag
-    
-    for (let i = 0; i < this.state.students.length; i++) {
-      this.state.students[i].tags = [];
-    }
-
     const students = this.state.isSearchNames
       ? this.state.students
           .filter(this.searchByName(this.state.nameKeyword))

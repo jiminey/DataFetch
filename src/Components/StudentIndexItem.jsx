@@ -8,6 +8,7 @@ export default class StudentIndexItem extends Component {
     this.state = {
       showPullDown: true,
       tags: [],
+      tagInput: "",
     };
 
     this.getAverage = this.getAverage.bind(this);
@@ -15,6 +16,7 @@ export default class StudentIndexItem extends Component {
     this.toggle = this.toggle.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.addTag = this.addTag.bind(this);
+    this.handleInput = this.handleInput.bind(this)
   }
 
   getAverage(grades) {
@@ -51,42 +53,51 @@ export default class StudentIndexItem extends Component {
     });
   }
 
-  handleSubmit(e){
+  handleSubmit(e) {
     e.preventDefault();
-    this.addTag(e.currentTarget.value)
-    console.log(this.props.tags)
+    this.addTag(this.state.tagInput);
+  }
+
+  //allows to submit with return key instead of button
+  checkSubmit(e) {
+    if (e && e.keyCode === 13) {
+      document.forms[0].submit();
+    }
+  }
+
+  handleInput(e) {
+    e.preventDefault();
+    this.setState({
+        tagInput: e.currentTarget.value
+    })
   }
 
   addTag(tag) {
-    let tagList = [...this.state.tags, tag]
-
-    tagList = tagList.join(" || ")
+    let tagList = [...this.state.tags, tag];
 
     this.setState({
-        tags: tagList
-    })
-    this.props.getStudent(this.props.id, tagList)
+      tags: tagList
+    });
+    this.props.getStudent(this.props.id, tagList);
 
     if (!(this.state.tags.indexOf(tag) > -1)) {
-        let tags = this.state.tags.concat([tag])
-        this.setState({
-            tags: tags
-        })
+      let tags = this.state.tags.concat([tag]);
+      this.setState({
+        tags: tags
+      });
     }
-
   }
 
   tagInput() {
-      if (!this.state.showPullDown) {
-          return (
-            <div>
-              <form onSubmit={this.handleSubmit}>
-                <input type="text" placeholder="Add a tag" />
-                <button>submit</button>
-              </form>
-            </div>
-          );
-      }
+    if (!this.state.showPullDown) {
+      return (
+        <div>
+          <form onSubmit={this.handleSubmit}>
+            <input type="text" placeholder="Add a tag" onChange={this.handleInput}/>
+          </form>
+        </div>
+      );
+    }
   }
 
   render() {
@@ -96,27 +107,27 @@ export default class StudentIndexItem extends Component {
     const company = this.props.company;
     const skill = this.props.skill;
     const grades = this.getAverage(this.props.grades);
-     
-    const tags = this.props.tags && this.props.tags.map(tag => {
-          return (
-              <li>{tag}</li>
-          );
-        });
+
+    const tags =
+      this.props.tags &&
+      this.props.tags.map((tag, idx) => {
+        return <li key={idx}>{tag}</li>;
+      });
 
     const test =
       !this.state.showPullDown &&
       this.props.grades.map((test, idx) => {
         return (
-            <li key={idx + 1}>
-              Test {idx + 1}: {test}%
-            </li>
+          <li key={idx + 1}>
+            Test {idx + 1}: {test}%
+          </li>
         );
       });
 
     return (
       <div>
         <div>
-          <img src={this.props.pic} alt="" />
+          <img src={this.props.pic} alt="lost pic" />
         </div>
 
         <div>
@@ -132,9 +143,7 @@ export default class StudentIndexItem extends Component {
         </div>
 
         <div>
-
           <ul>{test}</ul>
-
         </div>
 
         <div>
