@@ -54,6 +54,7 @@ export default class StudentIndexItem extends Component {
   handleSubmit(e){
     e.preventDefault();
     this.addTag(e.currentTarget.value)
+    console.log(this.props.tags)
   }
 
   addTag(tag) {
@@ -81,6 +82,7 @@ export default class StudentIndexItem extends Component {
             <div>
               <form onSubmit={this.handleSubmit}>
                 <input type="text" placeholder="Add a tag" />
+                <button>submit</button>
               </form>
             </div>
           );
@@ -95,11 +97,9 @@ export default class StudentIndexItem extends Component {
     const skill = this.props.skill;
     const grades = this.getAverage(this.props.grades);
      
-    const tags = this.props.tags.map(tag => {
+    const tags = this.props.tags && this.props.tags.map(tag => {
           return (
-            <div>
               <li>{tag}</li>
-            </div>
           );
         });
 
@@ -107,11 +107,9 @@ export default class StudentIndexItem extends Component {
       !this.state.showPullDown &&
       this.props.grades.map((test, idx) => {
         return (
-          <div key={idx}>
             <li key={idx + 1}>
               Test {idx + 1}: {test}%
             </li>
-          </div>
         );
       });
 

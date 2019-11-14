@@ -40,7 +40,7 @@ export default class Student extends Component {
   handleTag(e) {
     e.preventDefault();
     this.setState({
-      tag_ketword: e.currentTarget.value,
+      tagKeyword: e.currentTarget.value,
       isSearchTags: true,
       isSearchNames: false
     });
@@ -58,7 +58,9 @@ export default class Student extends Component {
   searchByTags(keyword) {
     return x => {
       for (let i = 0; i < x.tags.length; i++) {
-        return x.tags[i].toLowerCase().includes(keyword.toLowerCase());
+        return (
+            x.tags[i].includes(keyword)
+        )
       }
     };
   }
@@ -127,7 +129,29 @@ export default class Student extends Component {
               ></StudentIndexItem>
             );
           });
-
+          //edge case to display index when nothing is in search box
+          let list;
+          if (this.state.tagKeyword === "" && this.state.nameKeyword === "") {
+              list = this.state.students.map(student => {
+                  return (
+                    <StudentIndexItem
+                      key={student.id}
+                      id={student.id}
+                      pic={student.pic}
+                      firstName={student.firstName}
+                      lastName={student.lastName}
+                      email={student.email}
+                      company={student.company}
+                      skill={student.skill}
+                      grades={student.grades}
+                      tags={student.tags}
+                      getStudent={this.getStudent}
+                    ></StudentIndexItem>
+                  );
+              })
+          } else {
+              list = students
+          }
     return (
       <div>
         <div>
@@ -151,7 +175,7 @@ export default class Student extends Component {
           </form>
         </div>
 
-        <div>{students}</div>
+        <div>{list}</div>
       </div>
     );
   }
