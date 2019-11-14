@@ -18,12 +18,14 @@ export default class Student extends Component {
     this.handleTag = this.handleTag.bind(this);
     this.searchByName = this.searchByName.bind(this);
     this.searchByTags = this.searchByTags.bind(this);
+    this.getStudent = this.getStudent.bind(this);
   }
 
   componentDidMount() {
     axios.get("https://www.hatchways.io/api/assessment/students").then(res => {
       this.setState({ students: res.data.students });
     });
+
   }
 
   handleName(e) {
@@ -61,30 +63,38 @@ export default class Student extends Component {
     };
   }
 
-  addTags(id, tag) {
-    const student = this.state.students.filter(student => student.id === id).shift()
-    
-    //create tags for students
-    student.tags = student.tags.push(tag)
+  getStudent(id ,tag) {
+    const student = this.state.students
+      .filter(student => student.id === id)
+      .shift();
 
-    let newList = [...this.state.studentsWithTags, student]
-    let uniqList = [...new Set(newList)]
+    const tagArr = []
+    tagArr.push(tag)
 
+    student.tags = tagArr
+    let newList = [...this.state.studentsWithTags, student];
+    let uniqList = [...new Set(newList)];
     this.setState({
-        studentsWithTags: uniqList
-    })
-
+      studentsWithTags: uniqList
+    });
   }
 
   render() {
     //ternary for searching with name or tag
+    
+    for (let i = 0; i < this.state.students.length; i++) {
+      this.state.students[i].tags = [];
+    }
+
     const students = this.state.isSearchNames
       ? this.state.students
           .filter(this.searchByName(this.state.nameKeyword))
           .map(student => {
             return (
+
               <StudentIndexItem
                 key={student.id}
+                students ={this.state.students}
                 id={student.id}
                 pic={student.pic}
                 firstName={student.firstName}
@@ -94,7 +104,7 @@ export default class Student extends Component {
                 skill={student.skill}
                 grades={student.grades}
                 tags={student.tags}
-                // handleTags={this.handleTags}
+                getStudent={this.getStudent}
               ></StudentIndexItem>
             );
           })
@@ -113,7 +123,7 @@ export default class Student extends Component {
                 skill={student.skill}
                 grades={student.grades}
                 tags={student.tags}
-                // handleTags={this.handleTags}
+                getStudent={this.getStudent}
               ></StudentIndexItem>
             );
           });
@@ -142,7 +152,6 @@ export default class Student extends Component {
         </div>
 
         <div>{students}</div>
-
       </div>
     );
   }

@@ -7,7 +7,7 @@ export default class StudentIndexItem extends Component {
     super(props);
     this.state = {
       showPullDown: true,
-      tags: []
+      tags: [],
     };
 
     this.getAverage = this.getAverage.bind(this);
@@ -57,7 +57,34 @@ export default class StudentIndexItem extends Component {
   }
 
   addTag(tag) {
-    let tags = [...this.state.tags, tag]
+    let tagList = [...this.state.tags, tag]
+
+    tagList = tagList.join(" || ")
+
+    this.setState({
+        tags: tagList
+    })
+    this.props.getStudent(this.props.id, tagList)
+
+    if (!(this.state.tags.indexOf(tag) > -1)) {
+        let tags = this.state.tags.concat([tag])
+        this.setState({
+            tags: tags
+        })
+    }
+
+  }
+
+  tagInput() {
+      if (!this.state.showPullDown) {
+          return (
+            <div>
+              <form onSubmit={this.handleSubmit}>
+                <input type="text" placeholder="Add a tag" />
+              </form>
+            </div>
+          );
+      }
   }
 
   render() {
@@ -67,20 +94,20 @@ export default class StudentIndexItem extends Component {
     const company = this.props.company;
     const skill = this.props.skill;
     const grades = this.getAverage(this.props.grades);
-
-    // const tags = this.props.tags.map(tag => {
-    //   return (
-    //     <div>
-    //       <li>{tag}</li>
-    //     </div>
-    //   );
-    // });
+     
+    const tags = this.props.tags.map(tag => {
+          return (
+            <div>
+              <li>{tag}</li>
+            </div>
+          );
+        });
 
     const test =
       !this.state.showPullDown &&
       this.props.grades.map((test, idx) => {
         return (
-          <div>
+          <div key={idx}>
             <li key={idx + 1}>
               Test {idx + 1}: {test}%
             </li>
@@ -107,18 +134,18 @@ export default class StudentIndexItem extends Component {
         </div>
 
         <div>
+
           <ul>{test}</ul>
+
         </div>
 
         <div>
-          {/* <ul>{tags}</ul> */}
+          <ul>{tags}</ul>
         </div>
 
-        {this.showPullDown()}
+        {this.tagInput()}
 
-        <form onSubmit={this.handleSubmit}>
-          <input type="text" placeholder="Add a tag" />
-        </form>
+        {this.showPullDown()}
       </div>
     );
   }
