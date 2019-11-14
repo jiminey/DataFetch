@@ -11,6 +11,8 @@ export default class Student extends Component {
             name_keyword: '', 
             tag_keyword: '',
             matches: [],
+            searchNames: true,
+            searchTags: false,
 
         }
         this.handleName = this.handleName.bind(this)
@@ -23,12 +25,22 @@ export default class Student extends Component {
         })
     }
 
-    handleName() {
-
+    handleName(e) {
+        e.preventDefault();
+        this.setState({
+            name_keyword: e.currentTarget.value,
+            searchNames: true,
+            searchTags: false,
+        })
     }
     
-    handleTag() {
-
+    handleTag(e) {
+        e.preventDefault();
+        this.setState({
+            tag_ketword: e.currentTarget.value,
+            searchTags: true,
+            searchNames: false,
+        })
     }
 
     render() {
@@ -68,7 +80,7 @@ export default class Student extends Component {
                     value={this.state.tag_keyword}/>
                 </form>
               </div>
-              
+
           </div>
         );
     }
