@@ -70,10 +70,10 @@ export default class Student extends Component {
       .filter(student => student.id === id)
       .shift();
 
-    const tagArr = []
-    tagArr.push(tag)
+    student.tags = student.tags || []
+    student.tags.push(tag)
+    console.log(student.tags)
 
-    student.tags = [tag]
     let newList = [...this.state.studentsWithTags, student];
     let uniqList = [...new Set(newList)];
     this.setState({

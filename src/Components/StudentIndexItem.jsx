@@ -7,7 +7,6 @@ export default class StudentIndexItem extends Component {
     super(props);
     this.state = {
       showPullDown: true,
-      tags: [],
       tagInput: "",
     };
 
@@ -73,23 +72,11 @@ export default class StudentIndexItem extends Component {
   }
 
   addTag(tag) {
-    let tagList = [...this.state.tags, tag];
-
-    this.setState({
-      tags: tagList
-    });
-    
-    if (this.props.tags && this.props.tags.indexOf(tag) > -1) {
-        this.props.addTag(this.props.id, tagList);
+    let tags = this.props.tags || []
+    if (!(tags.indexOf(tag) > -1)) {
+        this.props.addTag(this.props.id, tag);
     }
-
-    // if (!(this.state.tags.indexOf(tag) > -1)) {
-    //   let tags = this.state.tags.concat([tag]);
-    //   this.setState({
-    //     tags: tags
-    //   });
-    // }
-  }
+  }   
 
   tagInput() {
     if (!this.state.showPullDown) {
