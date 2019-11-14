@@ -78,14 +78,17 @@ export default class StudentIndexItem extends Component {
     this.setState({
       tags: tagList
     });
-    this.props.getStudent(this.props.id, tagList);
-
-    if (!(this.state.tags.indexOf(tag) > -1)) {
-      let tags = this.state.tags.concat([tag]);
-      this.setState({
-        tags: tags
-      });
+    
+    if (this.props.tags && this.props.tags.indexOf(tag) > -1) {
+        this.props.addTag(this.props.id, tagList);
     }
+
+    // if (!(this.state.tags.indexOf(tag) > -1)) {
+    //   let tags = this.state.tags.concat([tag]);
+    //   this.setState({
+    //     tags: tags
+    //   });
+    // }
   }
 
   tagInput() {

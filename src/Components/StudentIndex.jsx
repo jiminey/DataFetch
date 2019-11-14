@@ -18,7 +18,7 @@ export default class Student extends Component {
     this.handleTag = this.handleTag.bind(this);
     this.searchByName = this.searchByName.bind(this);
     this.searchByTags = this.searchByTags.bind(this);
-    this.getStudent = this.getStudent.bind(this);
+    this.addTag = this.addTag.bind(this);
   }
 
   componentDidMount() {
@@ -65,7 +65,7 @@ export default class Student extends Component {
     };
   }
 
-  getStudent(id ,tag) {
+  addTag(id ,tag) {
     const student = this.state.students
       .filter(student => student.id === id)
       .shift();
@@ -73,7 +73,7 @@ export default class Student extends Component {
     const tagArr = []
     tagArr.push(tag)
 
-    student.tags = tagArr
+    student.tags = [tag]
     let newList = [...this.state.studentsWithTags, student];
     let uniqList = [...new Set(newList)];
     this.setState({
@@ -102,7 +102,7 @@ export default class Student extends Component {
                 skill={student.skill}
                 grades={student.grades}
                 tags={student.tags}
-                getStudent={this.getStudent}
+                addTag={this.addTag}
               ></StudentIndexItem>
             );
           })
@@ -121,7 +121,7 @@ export default class Student extends Component {
                 skill={student.skill}
                 grades={student.grades}
                 tags={student.tags}
-                getStudent={this.getStudent}
+                addTag={this.addTag}
               ></StudentIndexItem>
             );
           });
@@ -141,7 +141,7 @@ export default class Student extends Component {
                       skill={student.skill}
                       grades={student.grades}
                       tags={student.tags}
-                      getStudent={this.getStudent}
+                      addTag={this.addTag}
                     ></StudentIndexItem>
                   );
               })
