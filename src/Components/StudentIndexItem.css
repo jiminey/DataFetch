@@ -28,7 +28,7 @@ li {
   line-height: 20px;
 }
 
-ul:first-child li:first-child {
+.name {
   color: black;
   font-size: 40px;
   margin-left: -221px;
@@ -36,7 +36,7 @@ ul:first-child li:first-child {
   font-weight: bold;
 }
 
-ul:first-child li:nth-child(2) {
+.email {
   margin-top: 28px;
 }
 
@@ -55,15 +55,30 @@ ul {
   flex-direction: column;
   align-items: flex-start;
   margin-left: 180px;
+  margin-top: 25px;
 }
 
 .tag-input {
   width: 134px;
   display: flex;
-  margin-left: 19px;
+  margin-left: 18px;
   border: none;
   border-bottom: 1px solid black;
   font-size: 18px;
-  padding: 10px;
+  padding: 3px;
+  padding-bottom: 10px;
   color: #999;
+}
+
+.tags {
+    display: flex; 
+    justify-content: space-evenly;
+    height: 100px;
+    width: 100px;
+    font-size: 15px;
+    color: #999;
+}
+
+.tag-container {
+    width: 100%;
 }

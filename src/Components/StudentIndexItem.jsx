@@ -88,8 +88,8 @@ export default class StudentIndexItem extends Component {
     if (!this.state.showPullDown) {
       return (
         <div>
-          <div>
-            <ul>{tags}</ul>
+          <div className='tag-container'>
+            <ul className="tags">{tags}</ul>
           </div>
           <form onSubmit={this.handleSubmit}>
             <input
@@ -128,10 +128,10 @@ export default class StudentIndexItem extends Component {
           <img className='student-pic'src={this.props.pic} alt="lost pic" />
           <div>
             <ul>
-              <li>
+              <li className='name'>
                 {firstName} {lastName}
               </li>
-              <li>Email: {email}</li>
+              <li className='email'>Email: {email}</li>
               <li>Company: {company}</li>
               <li>Skill: {skill}</li>
               <li>Average: {grades}%</li>
