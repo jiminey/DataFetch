@@ -145,6 +145,7 @@ export default class Student extends Component {
         <div>
           <form>
             <input
+              className="search-bar"
               type="text"
               onChange={this.handleName}
               placeholder="Search by name"
@@ -155,6 +156,7 @@ export default class Student extends Component {
         <div>
           <form>
             <input
+              className="search-bar"
               type="text"
               onChange={this.handleTag}
               placeholder="Search by tags"
