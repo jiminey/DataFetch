@@ -1,4 +1,10 @@
 This project was made by Jimmy Nguyen.
+
+ "install": "npm install",
+ "run": "npm start",
+ "port": 3000
+
+
 jimmynguyen.dev
 linkedin.com/in/jimmythanhnguyen
 
