@@ -84,7 +84,7 @@ export default class StudentIndexItem extends Component {
       this.props.tags.map((tag, idx) => {
         return <li key={idx}>{tag}</li>;
       });
-      
+
     if (!this.state.showPullDown) {
       return (
         <div>

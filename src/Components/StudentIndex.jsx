@@ -141,31 +141,29 @@ export default class Student extends Component {
       list = students;
     }
     return (
-      <div className='main'>
-        <div className='index'>
-          <div>
-            <form>
-              <input
-                type="text"
-                onChange={this.handleName}
-                placeholder="Search by name"
-                value={this.state.nameKeyword}
-              />
-            </form>
-          </div>
-          <div>
-            <form>
-              <input
-                type="text"
-                onChange={this.handleTag}
-                placeholder="Search by tags"
-                value={this.state.tagKeyword}
-              />
-            </form>
-          </div>
-
-          <div>{list}</div>
+      <div className="index">
+        <div>
+          <form>
+            <input
+              type="text"
+              onChange={this.handleName}
+              placeholder="Search by name"
+              value={this.state.nameKeyword}
+            />
+          </form>
         </div>
+        <div>
+          <form>
+            <input
+              type="text"
+              onChange={this.handleTag}
+              placeholder="Search by tags"
+              value={this.state.tagKeyword}
+            />
+          </form>
+        </div>
+
+        <div>{list}</div>
       </div>
     );
   }
