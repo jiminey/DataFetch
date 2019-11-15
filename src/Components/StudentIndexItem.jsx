@@ -104,8 +104,8 @@ export default class StudentIndexItem extends Component {
   }
 
   render() {
-    const firstName = this.props.firstName;
-    const lastName = this.props.lastName;
+    const firstName = this.props.firstName.toUpperCase();
+    const lastName = this.props.lastName.toUpperCase();
     const email = this.props.email;
     const company = this.props.company;
     const skill = this.props.skill;
@@ -122,30 +122,25 @@ export default class StudentIndexItem extends Component {
       });
 
     return (
-      <div>
-        <div>
-          <img src={this.props.pic} alt="lost pic" />
+      <div className="student-main">
+        <div className="student-main-left">
+          <img className='student-pic'src={this.props.pic} alt="lost pic" />
+          <div>
+            <ul className='list-items'>
+              <li>
+                {firstName} {lastName}
+              </li>
+              <li>Email: {email}</li>
+              <li>Company: {company}</li>
+              <li>Skill: {skill}</li>
+              <li>Average: {grades}</li>
+            </ul>
+
+            <ul>{test}</ul>
+            {this.tagInput()}
+          </div>
         </div>
-
-        <div>
-          <ul>
-            <li>
-              {firstName} {lastName}
-            </li>
-            <li>Email: {email}</li>
-            <li>Company: {company}</li>
-            <li>Skill: {skill}</li>
-            <li>Average: {grades}</li>
-          </ul>
-        </div>
-
-        <div>
-          <ul>{test}</ul>
-        </div>
-
-        {this.tagInput()}
-
-        {this.showPullDown()}
+        <div className='pull-down'>{this.showPullDown()}</div>
       </div>
     );
   }
