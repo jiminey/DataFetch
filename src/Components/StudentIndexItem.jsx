@@ -93,6 +93,7 @@ export default class StudentIndexItem extends Component {
           </div>
           <form onSubmit={this.handleSubmit}>
             <input
+              className='tag-input'
               type="text"
               placeholder="Add a tag"
               onChange={this.handleInput}
@@ -126,14 +127,14 @@ export default class StudentIndexItem extends Component {
         <div className="student-main-left">
           <img className='student-pic'src={this.props.pic} alt="lost pic" />
           <div>
-            <ul className='list-items'>
+            <ul>
               <li>
                 {firstName} {lastName}
               </li>
               <li>Email: {email}</li>
               <li>Company: {company}</li>
               <li>Skill: {skill}</li>
-              <li>Average: {grades}</li>
+              <li>Average: {grades}%</li>
             </ul>
 
             <ul>{test}</ul>
