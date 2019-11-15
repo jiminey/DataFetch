@@ -25,7 +25,6 @@ export default class Student extends Component {
     axios.get("https://www.hatchways.io/api/assessment/students").then(res => {
       this.setState({ students: res.data.students });
     });
-
   }
 
   handleName(e) {
@@ -57,24 +56,23 @@ export default class Student extends Component {
 
   searchByTags(keyword) {
     return x => {
-      return x.tags.includes(keyword)
+      return x.tags.includes(keyword);
     };
   }
 
-  addTag(id ,tag) {
+  addTag(id, tag) {
     const student = this.state.students
       .filter(student => student.id === id)
       .shift();
 
-    student.tags = student.tags || []
-    student.tags.push(tag)
+    student.tags = student.tags || [];
+    student.tags.push(tag);
 
     let newList = [...this.state.studentsWithTags, student];
     let uniqList = [...new Set(newList)];
     this.setState({
       studentsWithTags: uniqList
     });
-
   }
 
   render() {
@@ -84,10 +82,9 @@ export default class Student extends Component {
           .filter(this.searchByName(this.state.nameKeyword))
           .map(student => {
             return (
-
               <StudentIndexItem
                 key={student.id}
-                students ={this.state.students}
+                students={this.state.students}
                 id={student.id}
                 pic={student.pic}
                 firstName={student.firstName}
@@ -120,53 +117,55 @@ export default class Student extends Component {
               ></StudentIndexItem>
             );
           });
-          //edge case to display index when nothing is in search box
-          let list;
-          if (this.state.tagKeyword === "" && this.state.nameKeyword === "") {
-              list = this.state.students.map(student => {
-                  return (
-                    <StudentIndexItem
-                      key={student.id}
-                      id={student.id}
-                      pic={student.pic}
-                      firstName={student.firstName}
-                      lastName={student.lastName}
-                      email={student.email}
-                      company={student.company}
-                      skill={student.skill}
-                      grades={student.grades}
-                      tags={student.tags}
-                      addTag={this.addTag}
-                    ></StudentIndexItem>
-                  );
-              })
-          } else {
-              list = students
-          }
+    //edge case to display index when nothing is in search box
+    let list;
+    if (this.state.tagKeyword === "" && this.state.nameKeyword === "") {
+      list = this.state.students.map(student => {
+        return (
+          <StudentIndexItem
+            key={student.id}
+            id={student.id}
+            pic={student.pic}
+            firstName={student.firstName}
+            lastName={student.lastName}
+            email={student.email}
+            company={student.company}
+            skill={student.skill}
+            grades={student.grades}
+            tags={student.tags}
+            addTag={this.addTag}
+          ></StudentIndexItem>
+        );
+      });
+    } else {
+      list = students;
+    }
     return (
-      <div>
-        <div>
-          <form>
-            <input
-              type="text"
-              onChange={this.handleName}
-              placeholder="Search by name"
-              value={this.state.nameKeyword}
-            />
-          </form>
-        </div>
-        <div>
-          <form>
-            <input
-              type="text"
-              onChange={this.handleTag}
-              placeholder="Search by tags"
-              value={this.state.tagKeyword}
-            />
-          </form>
-        </div>
+      <div className='main'>
+        <div className='index'>
+          <div>
+            <form>
+              <input
+                type="text"
+                onChange={this.handleName}
+                placeholder="Search by name"
+                value={this.state.nameKeyword}
+              />
+            </form>
+          </div>
+          <div>
+            <form>
+              <input
+                type="text"
+                onChange={this.handleTag}
+                placeholder="Search by tags"
+                value={this.state.tagKeyword}
+              />
+            </form>
+          </div>
 
-        <div>{list}</div>
+          <div>{list}</div>
+        </div>
       </div>
     );
   }

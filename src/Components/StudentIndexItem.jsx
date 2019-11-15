@@ -7,7 +7,7 @@ export default class StudentIndexItem extends Component {
     super(props);
     this.state = {
       showPullDown: true,
-      tagInput: "",
+      tagInput: ""
     };
 
     this.getAverage = this.getAverage.bind(this);
@@ -15,7 +15,7 @@ export default class StudentIndexItem extends Component {
     this.toggle = this.toggle.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.addTag = this.addTag.bind(this);
-    this.handleInput = this.handleInput.bind(this)
+    this.handleInput = this.handleInput.bind(this);
   }
 
   getAverage(grades) {
@@ -67,23 +67,36 @@ export default class StudentIndexItem extends Component {
   handleInput(e) {
     e.preventDefault();
     this.setState({
-        tagInput: e.currentTarget.value
-    })
+      tagInput: e.currentTarget.value
+    });
   }
 
   addTag(tag) {
-    let tags = this.props.tags || []
+    let tags = this.props.tags || [];
     if (!(tags.indexOf(tag) > -1)) {
-        this.props.addTag(this.props.id, tag);
+      this.props.addTag(this.props.id, tag);
     }
-  }   
+  }
 
   tagInput() {
+    const tags =
+      this.props.tags &&
+      this.props.tags.map((tag, idx) => {
+        return <li key={idx}>{tag}</li>;
+      });
+      
     if (!this.state.showPullDown) {
       return (
         <div>
+          <div>
+            <ul>{tags}</ul>
+          </div>
           <form onSubmit={this.handleSubmit}>
-            <input type="text" placeholder="Add a tag" onChange={this.handleInput}/>
+            <input
+              type="text"
+              placeholder="Add a tag"
+              onChange={this.handleInput}
+            />
           </form>
         </div>
       );
@@ -97,12 +110,6 @@ export default class StudentIndexItem extends Component {
     const company = this.props.company;
     const skill = this.props.skill;
     const grades = this.getAverage(this.props.grades);
-
-    const tags =
-      this.props.tags &&
-      this.props.tags.map((tag, idx) => {
-        return <li key={idx}>{tag}</li>;
-      });
 
     const test =
       !this.state.showPullDown &&
@@ -134,10 +141,6 @@ export default class StudentIndexItem extends Component {
 
         <div>
           <ul>{test}</ul>
-        </div>
-
-        <div>
-          <ul>{tags}</ul>
         </div>
 
         {this.tagInput()}
