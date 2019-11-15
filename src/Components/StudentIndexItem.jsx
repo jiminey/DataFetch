@@ -82,18 +82,22 @@ export default class StudentIndexItem extends Component {
     const tags =
       this.props.tags &&
       this.props.tags.map((tag, idx) => {
-        return <li key={idx}>{tag}</li>;
+        return (
+          <li className="tag-li" key={idx}>
+            {tag}
+          </li>
+        );
       });
 
     if (!this.state.showPullDown) {
       return (
         <div>
-          <div className='tag-container'>
+          <div className="tag-container">
             <ul className="tags">{tags}</ul>
           </div>
           <form onSubmit={this.handleSubmit}>
             <input
-              className='tag-input'
+              className="tag-input"
               type="text"
               placeholder="Add a tag"
               onChange={this.handleInput}
@@ -125,13 +129,13 @@ export default class StudentIndexItem extends Component {
     return (
       <div className="student-main">
         <div className="student-main-left">
-          <img className='student-pic'src={this.props.pic} alt="lost pic" />
+          <img className="student-pic" src={this.props.pic} alt="lost pic" />
           <div>
             <ul>
-              <li className='name'>
+              <li className="name">
                 {firstName} {lastName}
               </li>
-              <li className='email'>Email: {email}</li>
+              <li className="email">Email: {email}</li>
               <li>Company: {company}</li>
               <li>Skill: {skill}</li>
               <li>Average: {grades}%</li>
@@ -141,7 +145,7 @@ export default class StudentIndexItem extends Component {
             {this.tagInput()}
           </div>
         </div>
-        <div className='pull-down'>{this.showPullDown()}</div>
+        <div className="pull-down">{this.showPullDown()}</div>
       </div>
     );
   }

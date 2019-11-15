@@ -6,7 +6,7 @@ input:focus,
 select:focus,
 textarea:focus,
 button:focus {
-    outline: none;
+  outline: none;
 }
 
 .index {
@@ -28,15 +28,15 @@ ul {
 }
 
 .search-bar {
-    color: rgb(139, 139, 139); /* Darker than placeholder */
-    border: none;
-    border-bottom: 1px solid #999;
-    width: 97%;
-    height: 60px;
-    font-size: 20px;
+  color: rgb(139, 139, 139); /* Darker than placeholder */
+  border: none;
+  border-bottom: 1px solid #999;
+  width: 97%;
+  height: 60px;
+  font-size: 20px;
 }
 
-::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
   color: #999;
 }
-

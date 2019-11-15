@@ -1,6 +1,6 @@
-import React from 'react';
-import './App.css';
-import StudentIndex from './Components/StudentIndex'
+import React from "react";
+import "./App.css";
+import StudentIndex from "./Components/StudentIndex";
 
 function App() {
   return (
