@@ -57,11 +57,7 @@ export default class Student extends Component {
 
   searchByTags(keyword) {
     return x => {
-      for (let i = 0; i < x.tags.length; i++) {
-        return (
-            x.tags[i].includes(keyword)
-        )
-      }
+      return x.tags.includes(keyword)
     };
   }
 
@@ -72,7 +68,6 @@ export default class Student extends Component {
 
     student.tags = student.tags || []
     student.tags.push(tag)
-    console.log(student.tags)
 
     let newList = [...this.state.studentsWithTags, student];
     let uniqList = [...new Set(newList)];
